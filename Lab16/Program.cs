@@ -6,7 +6,7 @@ namespace Rozumatic_ASD_Lab16
 {
     class Program
     {
-        // 1. Наивная рекурсия Фибоначчи - О(2^n)
+        // 1. Наївна рекурсія Фібоначчі - О(2^n)
         static long NaiveFibonacci(int n, ref long callCount)
         {
             callCount++;
@@ -14,7 +14,7 @@ namespace Rozumatic_ASD_Lab16
             return NaiveFibonacci(n - 1, ref callCount) + NaiveFibonacci(n - 2, ref callCount);
         }
 
-        // 2. Оптимизированный Фибоначчи с мемоизацией - О(n)
+        // 2. Оптимізований Фібоначчі з мемоізацією - О(n)
         static long MemoizedFibonacci(int n, Dictionary<int, long> memo, ref long callCount)
         {
             callCount++;
@@ -26,7 +26,7 @@ namespace Rozumatic_ASD_Lab16
             return result;
         }
 
-        // 3. Демонстрация глубины рекурсии
+        // 3. Демонстрація глибини рекурсії
         static void DemonstrateRecursionDepth(int currentDepth, int targetDepth)
         {
             if (currentDepth >= targetDepth)
@@ -45,7 +45,8 @@ namespace Rozumatic_ASD_Lab16
             return GetGCD(b, a % b, ref gcdCalls); // Крок рекурсії
         }
 
-        static void Main(string args)
+        // ТОЧКА ВХОДУ (ВИПРАВЛЕНО: додано масив string[] замість одинарного string)
+        static void Main(string[] args)
         {
             Console.WriteLine("=========================================================================");
             Console.WriteLine("  РОЗУМАТИК // ЛАБОРАТОРНА РОБОТА №16: РЕКУРСІЯ ТА АЛГОРИТМ ЕВКЛІДА     ");
@@ -54,7 +55,7 @@ namespace Rozumatic_ASD_Lab16
             int n = 35;
             Console.WriteLine("Обчислюємо " + n + "-е число Фібоначчі:\n");
 
-            // Тест 1: Наивная рекурсия
+            // Тест 1: Наївна рекурсія
             long calls1 = 0;
             Stopwatch sw = Stopwatch.StartNew();
             long fib1 = NaiveFibonacci(n, ref calls1);
@@ -62,7 +63,7 @@ namespace Rozumatic_ASD_Lab16
             Console.WriteLine("1. Наївна рекурсія:");
             Console.WriteLine("   Результат: " + fib1 + " | Викликів функції: " + calls1 + " | Час: " + sw.Elapsed.TotalMilliseconds.ToString("F4") + " ms");
 
-            // Тест 2: Мемоизация
+            // Тест 2: Мемоізація (Кеш)
             long calls2 = 0;
             var memo = new Dictionary<int, long>();
             sw.Restart();
@@ -71,7 +72,7 @@ namespace Rozumatic_ASD_Lab16
             Console.WriteLine("\n2. Мемоізація (Кеш):");
             Console.WriteLine("   Результат: " + fib2 + " | Викликів функції: " + calls2 + " | Час: " + sw.Elapsed.TotalMilliseconds.ToString("F4") + " ms");
 
-            // Тест 3: Глубина рекурсии
+            // Тест 3: Глибина рекурсії
             Console.WriteLine("\n3. Перевірка глибини рекурсивних викликів:");
             DemonstrateRecursionDepth(1, 1000);
 
@@ -84,7 +85,7 @@ namespace Rozumatic_ASD_Lab16
 
             long gcdResult = GetGCD(num1, num2, ref gcdCalls);
             Console.WriteLine("  НСД(" + num1 + ", " + num2 + ") = " + gcdResult);
-            Console.WriteLine("  Кількість рекурсивних викликів для НСД: " + gcdCalls);
+            Console.WriteLine("  Kількість рекурсивних викликів для НСД: " + gcdCalls);
         }
     }
 }
