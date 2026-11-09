@@ -63,7 +63,7 @@ namespace Rozumatic_ASD_Lab11
                 }
 
                 T item = _buffer[_head];
-                _buffer[_head] = default!; // очищення посилання
+                _buffer[_head] = default(T); // ИСПРАВЛЕНО ДЛЯ C# 7.0
                 _head = (_head + 1) % _buffer.Length;
                 _count--;
                 return item;
@@ -112,7 +112,6 @@ namespace Rozumatic_ASD_Lab11
             Console.WriteLine("  РОЗУМАТИК // ЛАБОРАТОРНА РОБОТА №11: КІЛЬЦЕВИЙ БУФЕР (ПОТОКОБЕЗПЕЧНИЙ)  ");
             Console.WriteLine("=========================================================================");
 
-            // Створюємо буфер невеликої ємності для тесту
             CircularQueue<string> queue = new CircularQueue<string>(4);
 
             // Сценарій Producer-Consumer за допомогою потоків
@@ -131,13 +130,13 @@ namespace Rozumatic_ASD_Lab11
                     {
                         Console.WriteLine($"[Producer Помилка]: {ex.Message}");
                     }
-                    Thread.Sleep(200); // Імітація роботи
+                    Thread.Sleep(200);
                 }
             });
 
             Thread consumer = new Thread(() =>
             {
-                Thread.Sleep(300); // Споживач починає трохи пізніше
+                Thread.Sleep(300);
                 for (int i = 0; i < 3; i++)
                 {
                     try
@@ -150,15 +149,13 @@ namespace Rozumatic_ASD_Lab11
                     {
                         Console.WriteLine($"[Consumer Помилка]: {ex.Message}");
                     }
-                    Thread.Sleep(400); // Імітація обробки
+                    Thread.Sleep(400);
                 }
             });
 
-            // Запуск потоків
             producer.Start();
             consumer.Start();
 
-            // Очікування завершення
             producer.Join();
             consumer.Join();
 
